@@ -6,6 +6,7 @@ NetAddress myRemoteLocation;
 
 float average;
 
+
 Graph MyArduinoGraph = new Graph(150, 80, 500, 300, color (200, 20, 20));
 float[] gestureOne=null;
 float[] gestureTwo = null;
@@ -64,9 +65,11 @@ void draw() {
     
     OscMessage myMessage = new OscMessage("/average");
     OscMessage maxPoint = new OscMessage("/maxPoint");
- 
+     
+   
     myMessage.add(avg); // add an int to the osc message
     maxPoint.add(MyArduinoGraph.maxI);
+    maxPoint.add(Voltage3[MyArduinoGraph.maxI]);
  
   // send the message
     oscP5.send(maxPoint, myRemoteLocation); 
