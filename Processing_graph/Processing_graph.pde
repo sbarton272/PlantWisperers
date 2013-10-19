@@ -20,8 +20,8 @@ String[] names = {
 };
 
 int streamSize = 2;
-Queue <Float> pastXVals;
-Queue <Float> pastYVals;
+LinkedList <Float> pastXVals;
+LinkedList <Float> pastYVals;
 
 //SETUP*************************************************************************
 void setup() {
@@ -193,7 +193,7 @@ public float averageValue(float[] Values, int max) {
 
 
 
-float get1DVelocity(Queue <Float> stream) {
+float get1DVelocity(LinkedList <Float> stream) {
   float x1 = (float) stream.get(0);
   float x2 = (float) stream.get(1);
   return (x1-x2)/2;
