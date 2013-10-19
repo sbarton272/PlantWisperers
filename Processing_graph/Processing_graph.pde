@@ -19,7 +19,7 @@ String[] names = {
   "Nothing", "Touch", "Grab", "In water"
 };
 
-int streamSize = 5;
+int streamSize = 2;
 LinkedList <Float> pastXVals;
 LinkedList <Float> pastYVals;
 
@@ -204,10 +204,13 @@ public float averageValue(float[] Values, int max) {
 
 float get1DVelocity(LinkedList <Float> stream,int streamSize) {
   //uses five-point stencil finite difference http://en.wikipedia.org/wiki/Five-point_stenci
-  float x0 = (float) stream.get(0);
-  float x1 = (float) stream.get(1);
-  float x3 = (float) stream.get(3);
-  float x4 = (float) stream.get(4);
-  return (-x4+8*x3-8*x1+x0)/12;
-
-
+//  float x0 = (float) stream.get(0);
+//  float x1 = (float) stream.get(1);
+//  float x3 = (float) stream.get(3);
+//  float x4 = (float) stream.get(4);
+//  return (-x4+8*x3-8*x1+x0)/12;
+    
+    float x0 = (float) stream.get(0);
+    float x1 = (float) stream.get(1);
+    
+    return (x0-x1)/2;
