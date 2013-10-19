@@ -17,8 +17,9 @@ String[] names = {"Nothing", "Touch", "Grab","In water"};
 void setup() {
   
   oscP5 = new OscP5(this,5001);
-  myRemoteLocation = new NetAddress("127.0.0.1",5001);
+  myRemoteLocation = new NetAddress("127.0.0.1",5002);
   oscP5.plug(this, "average", "/average");
+  oscP5.plug(this, "maxPoint", "/maxPoint");
 
   size(1000, 500); 
 
@@ -49,7 +50,7 @@ void draw() {
    ====================================================================  */
 
   if ( DataRecieved3 ) {
-    float avg = averageValue(Voltage3, Voltage3.length/3);
+    float avg = averageValue(Voltage3, Voltage3.length);
     pushMatrix();
     pushStyle();
     MyArduinoGraph.yMax=500;      
@@ -62,13 +63,14 @@ void draw() {
     popMatrix();
     
     OscMessage myMessage = new OscMessage("/average");
+    OscMessage maxPoint = new OscMessage("/maxPoint");
  
     myMessage.add(avg); // add an int to the osc message
-  //myMessage.add(12.34); // add a float to the osc message 
-  //myMessage.add("some text!"); // add a string to the osc message
+    maxPoint.add(MyArduinoGraph.maxI);
  
   // send the message
-     oscP5.send(myMessage, myRemoteLocation); 
+    oscP5.send(maxPoint, myRemoteLocation); 
+    oscP5.send(myMessage, myRemoteLocation); 
 
     float gestureOneDiff =0;
     float gestureTwoDiff =0;
