@@ -41,6 +41,7 @@ void setup() {
   myRemoteLocation = new NetAddress("127.0.0.1", 5002);
   oscP5.plug(this, "average", "/average");
   oscP5.plug(this, "maxPoint", "/maxPoint");
+  //oscP5.plug(this, "velocity", "/velocity");
 
   size(1000, 500); 
 
@@ -96,12 +97,20 @@ void draw() {
 
     OscMessage myMessage = new OscMessage("/average");
     OscMessage maxPoint = new OscMessage("/maxPoint");
+   
 
     myMessage.add(avg); // add an int to the osc message
     maxPoint.add(MyArduinoGraph.maxI);
+<<<<<<< HEAD
     maxPoint.add(Voltage3[MyArduinoGraph.maxI]);
  
   // send the message
+=======
+    maxPoint.add(xVel);
+    maxPoint.add(yVel);
+
+    // send the message
+>>>>>>> 9254d2463aa31c46cc7c52bcd1506a4f9059ecb8
     oscP5.send(maxPoint, myRemoteLocation); 
     oscP5.send(myMessage, myRemoteLocation); 
 
