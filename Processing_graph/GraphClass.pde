@@ -51,6 +51,7 @@ class Graph
     Height = h;
     GraphColor = k;
   }
+  
 
 
   void DrawAxis() {

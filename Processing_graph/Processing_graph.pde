@@ -1,6 +1,7 @@
 import oscP5.*;
 import netP5.*;
- 
+import java.util.*;
+
 OscP5 oscP5;
 NetAddress myRemoteLocation;
 
@@ -14,11 +15,30 @@ float[] gestureThree = null;
 
 float[][] gesturePoints = new float[4][2];
 float[] gestureDist = new float[4];
-String[] names = {"Nothing", "Touch", "Grab","In water"};
+String[] names = {
+  "Nothing", "Touch", "Grab", "In water"
+};
+
+int streamSize = 2;
+Queue <Float> pastXVals;
+Queue <Float> pastYVals;
+
+//SETUP*************************************************************************
 void setup() {
   
-  oscP5 = new OscP5(this,5001);
-  myRemoteLocation = new NetAddress("127.0.0.1",5002);
+  //initialize value streams
+  pastXVals = new LinkedList <Float> ();
+  pastYVals = new LinkedList <Float> ();
+  
+  
+  // fill value streams with zeros
+  for(int i=0;i<streamSize;i++){
+    pastXVals.add(0.0); 
+    pastYVals.add(0.0);
+  }
+
+  oscP5 = new OscP5(this, 5001);
+  myRemoteLocation = new NetAddress("127.0.0.1", 5002);
   oscP5.plug(this, "average", "/average");
   oscP5.plug(this, "maxPoint", "/maxPoint");
 
@@ -39,12 +59,10 @@ void setup() {
   SerialPortSetup();      // speed of 115200 bps etc.
 }
 
-
+//DRAW*************************************************************************
 void draw() {
 
   background(255);
- 
-  
 
   /* ====================================================================
    Print the graph
@@ -63,10 +81,22 @@ void draw() {
     popStyle();
     popMatrix();
     
+    pastXVals.add((float)MyArduinoGraph.maxI); //Frequency w/ max voltage
+    pastYVals.add(Voltage3[MyArduinoGraph.maxI]);
+    
+    float xVel = get1DVelocity(pastXVals);
+    float yVel = get1DVelocity(pastYVals);
+    
+    pastXVals.remove(); //removes first element from queue
+    pastYVals.remove();
+    
+    
+    println("xVel =" + xVel);
+    println("yVel =" + yVel);
+
     OscMessage myMessage = new OscMessage("/average");
     OscMessage maxPoint = new OscMessage("/maxPoint");
-     
-   
+
     myMessage.add(avg); // add an int to the osc message
     maxPoint.add(MyArduinoGraph.maxI);
     maxPoint.add(Voltage3[MyArduinoGraph.maxI]);
@@ -102,12 +132,12 @@ void draw() {
         fill(255, 255, 255);
       }
 
-   //calucalte individual dist
+      //calucalte individual dist
       gestureDist[i] = dist(Time3[MyArduinoGraph.maxI], Voltage3[MyArduinoGraph.maxI], gesturePoints[i][0], gesturePoints[i][1]);
       totalDist = totalDist + gestureDist[i];
-      if(gestureDist[i] < currentMaxValue || i == 0)
+      if (gestureDist[i] < currentMaxValue || i == 0)
       {
-         currentMax = i;
+        currentMax = i;
         currentMaxValue =  gestureDist[i];
       }
     }
@@ -117,30 +147,26 @@ void draw() {
     {
       float currentAmmount = 0;
       currentAmmount = 1-gestureDist[i]/totalDist;
-      if(currentMax == i)
-       {
-         fill(0,0,0);
-    //       text(names[i],50,450);
-       fill(currentAmmount*255.0f, 0, 0);
-     
-
-       }
-       else
-       {
-         fill(255,255,255);
-       }
+      if (currentMax == i)
+      {
+        fill(0, 0, 0);
+        //       text(names[i],50,450);
+        fill(currentAmmount*255.0f, 0, 0);
+      }
+      else
+      {
+        fill(255, 255, 255);
+      }
 
       stroke(0, 0, 0);
       rect(750, 100 * (i+1), 50, 50);
-      fill(0,0,0);
+      fill(0, 0, 0);
       textSize(30);
-      text(names[i],810,100 * (i+1)+25);
+      text(names[i], 810, 100 * (i+1)+25);
 
       fill(255, 0, 0);
-   //   rect(800,100* (i+1), max(0,currentAmmount*50),50);
+      //   rect(800,100* (i+1), max(0,currentAmmount*50),50);
     }
-
-
   }
 }
 
@@ -148,20 +174,28 @@ void draw() {
 
 void stop()
 {
-
   myPort.stop();
   super.stop();
-  
-  
 }
 
-public float averageValue(float[] Values, int max){
+public float averageValue(float[] Values, int max) {
   float sum=0;
   // ensure no grabbing invalid values
-  if(Values.length < max) { max = Values.length; }
-  
-  for(int i=0; i < max; i++){
+  if (Values.length < max) { 
+    max = Values.length;
+  }
+
+  for (int i=0; i < max; i++) {
     sum+=Values[i];
   }
   return sum/max;
 }
+
+
+
+float get1DVelocity(Queue <Float> stream) {
+  float x1 = (float) stream.get(0);
+  float x2 = (float) stream.get(1);
+  return (x1-x2)/2;
+}
+
