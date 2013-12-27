@@ -38,7 +38,7 @@ void setup() {
   }
 
   oscP5 = new OscP5(this, 5001);
-  myRemoteLocation = new NetAddress("127.0.0.1", 5002);
+  myRemoteLocation = new NetAddress("192.168.1.113", 5002);
   oscP5.plug(this, "average", "/average");
   oscP5.plug(this, "maxPoint", "/maxPoint");
   //oscP5.plug(this, "velocity", "/velocity");
@@ -49,7 +49,7 @@ void setup() {
   MyArduinoGraph.yLabel="Amp";
   MyArduinoGraph.Title=" Graph";  
   noLoop();
-  PortSelected=4;      /* ====================================================================
+  PortSelected=0;      /* ====================================================================
    adjust this (0,1,2...) until the correct port is selected 
    In my case 2 for COM4, after I look at the Serial.list() string 
    println( Serial.list() );
@@ -92,8 +92,8 @@ void draw() {
     pastYVals.remove();
     
     
-    println("xVel =" + xVel);
-    println("yVel =" + yVel);
+    //println("xVel =" + xVel);
+    //println("yVel =" + yVel);
 
     OscMessage myMessage = new OscMessage("/average");
     OscMessage maxPoint = new OscMessage("/maxPoint");
@@ -101,16 +101,13 @@ void draw() {
 
     myMessage.add(avg); // add an int to the osc message
     maxPoint.add(MyArduinoGraph.maxI);
-<<<<<<< HEAD
     maxPoint.add(Voltage3[MyArduinoGraph.maxI]);
  
   // send the message
-=======
     maxPoint.add(xVel);
     maxPoint.add(yVel);
 
     // send the message
->>>>>>> 9254d2463aa31c46cc7c52bcd1506a4f9059ecb8
     oscP5.send(maxPoint, myRemoteLocation); 
     oscP5.send(myMessage, myRemoteLocation); 
 
@@ -202,15 +199,9 @@ public float averageValue(float[] Values, int max) {
 
 
 
-float get1DVelocity(LinkedList <Float> stream,int streamSize) {
-  //uses five-point stencil finite difference http://en.wikipedia.org/wiki/Five-point_stenci
-//  float x0 = (float) stream.get(0);
-//  float x1 = (float) stream.get(1);
-//  float x3 = (float) stream.get(3);
-//  float x4 = (float) stream.get(4);
-//  return (-x4+8*x3-8*x1+x0)/12;
-    
-    float x0 = (float) stream.get(0);
-    float x1 = (float) stream.get(1);
-    
-    return (x0-x1)/2;
+float get1DVelocity(LinkedList <Float> stream) {
+  float x1 = (float) stream.get(0);
+  float x2 = (float) stream.get(1);
+  return (x1-x2)/2;
+}
+

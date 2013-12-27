@@ -3,12 +3,11 @@
 		"fileversion" : 1,
 		"appversion" : 		{
 			"major" : 6,
-			"minor" : 1,
-			"revision" : 0,
-			"architecture" : "x86"
+			"minor" : 0,
+			"revision" : 8
 		}
 ,
-		"rect" : [ 0.0, 44.0, 1147.0, 760.0 ],
+		"rect" : [ 691.0, 50.0, 667.0, 624.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -106,8 +105,8 @@
 					"numinlets" : 6,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 297.0, 395.0, 119.0, 20.0 ],
-					"text" : "scale 340. 460. 0. 1."
+					"patching_rect" : [ 297.0, 395.0, 112.0, 20.0 ],
+					"text" : "scale 85. 650. 0. 1."
 				}
 
 			}
@@ -151,7 +150,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 120.5, 240.0, 50.0, 18.0 ],
-					"text" : "76"
+					"text" : "39"
 				}
 
 			}
@@ -179,7 +178,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 343.0, 258.0, 50.0, 18.0 ],
-					"text" : "443."
+					"text" : "88."
 				}
 
 			}
@@ -202,12 +201,13 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-7",
+					"linecount" : 2,
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 470.5, 323.725769, 50.0, 18.0 ],
-					"text" : "76 443."
+					"patching_rect" : [ 470.5, 323.725769, 50.0, 32.0 ],
+					"text" : "39 88. 0. 0.5"
 				}
 
 			}
@@ -331,7 +331,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 671.0, 964.725769, 208.0, 54.0 ],
+					"patching_rect" : [ 671.0, 964.725769, 208.0, 55.0 ],
 					"text" : "Click the mouse at different heights on each key and watch velocity output."
 				}
 
@@ -401,7 +401,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "int" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 318.0, 878.725769, 336.0, 53.0 ],
+					"patching_rect" : [ 318.0, 877.725769, 336.0, 53.0 ],
 					"presentation_rect" : [ 45.0, 45.0, 336.0, 53.0 ]
 				}
 
@@ -478,7 +478,7 @@
 			}
 , 			{
 				"box" : 				{
-					"addpoints" : [ 0.0, 0.0, 0, 0.057971, 0.078238, 0, 0.057971, 0.0, 0, 0.057971, 0.028486, 0, 0.814493, 0.968785, 0, 0.814493, 0.0, 0, 1.0, 0.0, 0 ],
+					"addpoints" : [ 0.0, 0.0, 0, 0.04058, 0.96381, 0, 0.057971, 0.078238, 0, 0.15942, 0.804606, 0, 0.301449, 0.317044, 0, 0.373913, 0.78968, 0, 0.814493, 0.968785, 0, 0.814493, 0.0, 0, 1.0, 0.0, 0 ],
 					"domain" : 1.0,
 					"id" : "obj-28",
 					"maxclass" : "function",
@@ -538,8 +538,8 @@
 					"orientation" : 1,
 					"outlettype" : [ "signal", "", "float", "list" ],
 					"parameter_enable" : 1,
-					"patching_rect" : [ 82.0, 994.0, 136.0, 41.0 ],
-					"presentation_rect" : [ 0.0, 0.0, 0.0, 41.0 ],
+					"patching_rect" : [ 82.0, 994.0, 136.0, 42.0 ],
+					"presentation_rect" : [ 0.0, 0.0, 50.0, 42.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_longname" : "live.gain~",
@@ -610,7 +610,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 939.0, 113.0, 382.0, 87.0 ],
+					"patching_rect" : [ 939.0, 113.0, 382.0, 89.0 ],
 					"text" : "- how to read the help options\n- unpack: the diff between 0 and 1\n- the diff between left and right inlet of a message\n- how to set values on sliders (and how to read the pre-set ones) \n- how to change the size of the fonts? \n- OSC vs udp? "
 				}
 
@@ -623,8 +623,8 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 66.0, 82.0, 180.0, 20.0 ],
-					"text" : "udpsend 128.237.169.174 8000"
+					"patching_rect" : [ 66.0, 82.0, 166.0, 20.0 ],
+					"text" : "udpsend 192.168.1.113 8000"
 				}
 
 			}
@@ -649,11 +649,11 @@
 					"fontsize" : 12.0,
 					"id" : "obj-6",
 					"maxclass" : "newobj",
-					"numinlets" : 2,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 361.0, 170.0, 95.0, 20.0 ],
-					"text" : "route /maxPoint"
+					"numinlets" : 3,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 361.0, 170.0, 145.0, 20.0 ],
+					"text" : "route /maxPoint /average"
 				}
 
 			}
@@ -667,7 +667,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 833.0, 217.0, 382.0, 181.0 ],
+					"patching_rect" : [ 833.0, 217.0, 382.0, 186.0 ],
 					"text" : " oscP5.plug(this, \"found\", \"/found\");\n  oscP5.plug(this, \"poseScale\", \"/pose/scale\");\n  oscP5.plug(this, \"posePosition\", \"/pose/position\");\n  oscP5.plug(this, \"poseOrientation\", \"/pose/orientation\");\n  oscP5.plug(this, \"mouthWidthReceived\", \"/gesture/mouth/width\");\n  oscP5.plug(this, \"mouthHeightReceived\", \"/gesture/mouth/height\");\n  oscP5.plug(this, \"eyeLeftReceived\", \"/gesture/eye/left\");\n  oscP5.plug(this, \"eyeRightReceived\", \"/gesture/eye/right\");\n  oscP5.plug(this, \"eyebrowLeftReceived\", \"/gesture/eyebrow/left\");\n  oscP5.plug(this, \"eyebrowRightReceived\", \"/gesture/eyebrow/right\");\n  oscP5.plug(this, \"jawReceived\", \"/gesture/jaw\");\n  oscP5.plug(this, \"nostrilsReceived\", \"/gesture/nostrils\");\n  "
 				}
 

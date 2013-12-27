@@ -38,7 +38,7 @@ int incrament=0;
 int NumOfSerialBytes=8;                              // The size of the buffer array
 int[] serialInArray = new int[NumOfSerialBytes];     // Buffer array
 int serialCount = 0;                                 // A count of how many bytes received
-int xMSB, xLSB, yMSB, yLSB;		                // Bytes of data
+int xMSB, xLSB, yMSB, yLSB;                   // Bytes of data
 
 Serial myPort;                                        // The serial port object
 
@@ -235,5 +235,4 @@ How that works: if xMSB = 10001001   and xLSB = 0100 0011
   redraw();  
   //    }
 }
-
 
